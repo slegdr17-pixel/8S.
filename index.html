@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>8S — Beyond Ordinary</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Orbitron:wght@500;700;900&display=swap');
+:root{--bg:#080808;--white:#eee;--muted:#888;--line:#292929}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:'Space Grotesk',sans-serif}
+a{color:inherit;text-decoration:none}
+header{height:76px;padding:0 6%;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--line);position:sticky;top:0;background:#080808eF;backdrop-filter:blur(14px);z-index:5}
+.logo{font:900 30px Orbitron;letter-spacing:-3px}
+.logo span{color:#777}
+nav{display:flex;gap:32px;font-size:11px;letter-spacing:2px;text-transform:uppercase}
+nav a:hover{color:#999}
+.menu{font-size:11px;letter-spacing:2px}
+.hero{min-height:calc(100vh - 76px);display:flex;align-items:center;position:relative;overflow:hidden;padding:8% 9%}
+.hero:before{content:"8S";position:absolute;font:900 clamp(250px,48vw,700px) Orbitron;color:#111;right:-3%;top:0;line-height:1;pointer-events:none}
+.hero-content{position:relative;z-index:1;max-width:720px}
+.tag{font-size:10px;letter-spacing:5px;color:#999;margin-bottom:28px}
+h1{font:900 clamp(65px,12vw,150px)/.86 Orbitron;letter-spacing:-9px}
+h1 span{color:transparent;-webkit-text-stroke:1px #eee}
+.hero p{color:#999;letter-spacing:2px;font-size:12px;margin:32px 0}
+.actions{display:flex;gap:14px;flex-wrap:wrap}
+.btn{padding:16px 25px;border:1px solid #777;font-size:10px;letter-spacing:2px;text-transform:uppercase;transition:.25s}
+.btn.primary{background:#eee;color:#080808;border-color:#eee}
+.btn:hover{background:#888;color:#080808;border-color:#888}
+.meta{position:absolute;bottom:35px;right:6%;font-size:9px;color:#777;letter-spacing:3px}
+.section{padding:100px 8%}
+.section-head{display:flex;justify-content:space-between;align-items:end;margin-bottom:40px}
+.eyebrow{font-size:10px;letter-spacing:4px;color:#888}
+h2{font:700 clamp(30px,5vw,60px) Orbitron;letter-spacing:-3px;margin-top:12px}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.product{border:1px solid var(--line);background:#0d0d0d;transition:.3s}
+.product:hover{border-color:#777;transform:translateY(-5px)}
+.product-art{height:340px;display:grid;place-items:center;overflow:hidden;background:radial-gradient(ellipse at center,#252525,#0b0b0b 65%)}
+.product-art img{width:100%;height:100%;object-fit:cover;filter:grayscale(1)}
+.art-word{font:900 58px Orbitron;color:#ddd;letter-spacing:-5px;text-shadow:0 0 30px #777}
+.product-info{padding:20px;display:flex;justify-content:space-between;gap:10px}
+.product-info h3{font-size:12px;letter-spacing:1px}
+.product-info p{font-size:10px;color:#777;margin-top:8px}
+.product-info span{font-size:11px;color:#aaa}
+.manifesto{border-top:1px solid var(--line);border-bottom:1px solid var(--line);text-align:center;padding:120px 8%;background:linear-gradient(130deg,#111,#080808,#171717)}
+.manifesto h2{font-size:clamp(34px,7vw,85px);line-height:1.1}
+.manifesto p{color:#999;font-size:12px;letter-spacing:2px;margin-top:24px}
+.about{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.about-art{min-height:340px;border:1px solid #333;display:grid;place-items:center;background:radial-gradient(circle,#292929,#090909 70%)}
+.about-art strong{font:900 clamp(70px,12vw,150px) Orbitron;letter-spacing:-12px}
+.about-copy p{color:#999;line-height:1.9;font-size:14px;margin-top:22px;max-width:450px}
+footer{padding:35px 8%;border-top:1px solid var(--line);display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;color:#777;font-size:10px;letter-spacing:2px}
+@media(max-width:700px){nav{gap:14px;font-size:9px}.menu{display:none}.hero{min-height:80vh;padding:12% 7%}h1{letter-spacing:-5px}.products{grid-template-columns:1fr 1fr}.product-art{height:230px}.about{grid-template-columns:1fr}.section{padding:75px 7%}}
+@media(max-width:430px){nav a:nth-child(2){display:none}.products{grid-template-columns:1fr}.product-art{height:300px}}
+</style>
+</head>
+<body>
+<header>
+<a class="logo" href="#">8S<span>.</span></a>
+<nav><a href="#collection">Collection</a><a href="#identity">Identity</a><a href="#about">About</a></nav>
+<a class="menu" href="mailto:contact@8sclothing.com">CONTACT ↗</a>
+</header>
+
+<main>
+<section class="hero">
+<div class="hero-content">
+<div class="tag">INDEPENDENT STREETWEAR · EST. 2040</div>
+<h1>BEYOND<br><span>ORDINARY.</span></h1>
+<p>BUILT FOR THE ONES WHO REFUSE TO BLEND IN.</p>
+<div class="actions">
+<a class="btn primary" href="#collection">Explore collection ↗</a>
+<a class="btn" href="#about">Discover 8S</a>
+</div>
+</div>
+<div class="meta">NO RULES. NO LIMITS. ONLY 8S.</div>
+</section>
+
+<section class="section" id="collection">
+<div class="section-head">
+<div><div class="eyebrow">01 / SELECTED PIECES</div><h2>THE COLLECTION.</h2></div>
+<div class="eyebrow">DROP 001 — 2040</div>
+</div>
+<div class="products">
+<article class="product"><div class="product-art"><div class="art-word">8S</div></div><div class="product-info"><div><h3>VOID OVERSIZED TEE</h3><p>BLACK / HEAVYWEIGHT</p></div><span>PRICE TBD</span></div></article>
+<article class="product"><div class="product-art"><div class="art-word">崩壊</div></div><div class="product-info"><div><h3>COLLAPSE GRAPHIC TEE</h3><p>DARK / GRAPHIC SERIES</p></div><span>PRICE TBD</span></div></article>
+<article class="product"><div class="product-art"><div class="art-word">2040</div></div><div class="product-info"><div><h3>FUTURE SYSTEM HOODIE</h3><p>BLACK / RELAXED FIT</p></div><span>PRICE TBD</span></div></article>
+</div>
+</section>
+
+<section class="manifesto" id="identity">
+<div class="eyebrow">02 / THE 8S PHILOSOPHY</div>
+<h2>NOT MADE TO<br>FIT IN.</h2>
+<p>BEYOND ORDINARY. BUILT FOR 2040.</p>
+</section>
+
+<section class="section about" id="about">
+<div class="about-art"><strong>8S</strong></div>
+<div class="about-copy">
+<div class="eyebrow">03 / WHO WE ARE</div>
+<h2>THE FUTURE<br>IS YOURS.</h2>
+<p>8S exists at the intersection of cyber culture, gothic design, anime influence and streetwear. A uniform for individuality. A signal for those building their own future.</p>
+<p>We don't follow the system. We create our own.</p>
+</div>
+</section>
+</main>
+
+<footer><a class="logo" href="#">8S.</a><span>BEYOND ORDINARY. BUILT FOR 2040.</span><span>© 8S — ALL RIGHTS RESERVED</span></footer>
+</body>
+</html>
