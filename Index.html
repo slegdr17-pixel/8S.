@@ -1,0 +1,478 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#080808">
+<title>8S — Beyond Infinity</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --bg:#080808;
+  --panel:#111;
+  --white:#f3f0eb;
+  --muted:#888;
+  --line:#292929;
+  --accent:#b8b8b8;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{
+  background:var(--bg);color:var(--white);
+  font-family:'DM Sans',sans-serif;overflow-x:hidden;
+}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+::selection{background:#eee;color:#000}
+
+/* INTRO */
+.loader{
+  position:fixed;inset:0;background:#050505;z-index:1000;
+  display:grid;place-items:center;animation:loaderOut 1s 1.3s forwards;
+}
+.loader-logo{
+  font:900 clamp(65px,15vw,130px)/1 'Barlow Condensed';
+  letter-spacing:-8px;animation:logoIn 1s ease;
+}
+.loader-logo span{color:#777}
+@keyframes logoIn{from{opacity:0;transform:scale(.8);filter:blur(15px)}to{opacity:1;transform:scale(1);filter:blur(0)}}
+@keyframes loaderOut{to{opacity:0;visibility:hidden;pointer-events:none}}
+
+/* BACKGROUND EFFECTS */
+.noise{
+  position:fixed;inset:0;pointer-events:none;z-index:20;opacity:.055;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 180 180' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
+}
+.glow{
+  position:fixed;width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle,rgba(255,255,255,.07),transparent 70%);
+  pointer-events:none;transform:translate(-50%,-50%);z-index:0;
+}
+
+/* NAV */
+nav{
+  height:78px;padding:0 6%;display:flex;align-items:center;
+  justify-content:space-between;border-bottom:1px solid var(--line);
+  position:sticky;top:0;background:rgba(8,8,8,.88);
+  backdrop-filter:blur(18px);z-index:100;
+}
+.brand{
+  font:900 39px/1 'Barlow Condensed';letter-spacing:-2px;
+}
+.brand span{color:#777}
+.nav-links{display:flex;gap:34px;font-size:11px;letter-spacing:2px;text-transform:uppercase;color:#aaa}
+.nav-links a:hover{color:white}
+.nav-right{display:flex;align-items:center;gap:20px;font-size:11px;letter-spacing:1px}
+.cart-button{border:1px solid #444;padding:10px 15px;background:transparent}
+.cart-button:hover{background:white;color:black}
+#cartCount{font-weight:700}
+
+/* HERO */
+.hero{
+  min-height:690px;height:calc(100vh - 78px);max-height:900px;
+  position:relative;display:flex;align-items:center;overflow:hidden;
+  padding:8%;border-bottom:1px solid var(--line);
+}
+.hero-art{
+  position:absolute;inset:0 0 0 35%;
+  background:
+    radial-gradient(ellipse at 60% 50%,rgba(180,180,180,.2),transparent 50%),
+    linear-gradient(115deg,#080808 5%,transparent 60%),
+    url('https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=1800&q=85') center 35%/cover;
+  opacity:.48;filter:grayscale(1);
+  animation:heroZoom 15s ease-in-out infinite alternate;
+}
+@keyframes heroZoom{to{transform:scale(1.08)}}
+.hero::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(90deg,#080808 10%,rgba(8,8,8,.65) 48%,transparent 100%);
+}
+.hero-content{position:relative;z-index:2;max-width:720px}
+.eyebrow{font-size:10px;letter-spacing:5px;color:#aaa;text-transform:uppercase;margin-bottom:25px}
+.hero h1{
+  font:900 clamp(80px,14vw,190px)/.76 'Barlow Condensed';
+  letter-spacing:-7px;text-transform:uppercase;
+}
+.hero h1 span{display:block;color:transparent;-webkit-text-stroke:1px #aaa}
+.hero-copy{font-size:13px;color:#aaa;max-width:350px;line-height:1.8;margin:35px 0}
+.cta{
+  display:inline-flex;align-items:center;gap:35px;
+  background:var(--white);color:#080808;padding:17px 22px;
+  font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;
+  transition:.3s;
+}
+.cta:hover{background:#aaa;gap:50px}
+.hero-index{position:absolute;right:6%;bottom:8%;z-index:2;color:#aaa;font-size:10px;letter-spacing:3px}
+.vertical-text{
+  position:absolute;right:3%;top:35%;writing-mode:vertical-rl;
+  z-index:2;color:#888;font-size:9px;letter-spacing:4px;
+}
+
+/* MARQUEE */
+.marquee{overflow:hidden;border-bottom:1px solid var(--line);padding:18px 0}
+.marquee-track{display:flex;width:max-content;animation:marquee 28s linear infinite}
+.marquee span{
+  font:700 24px 'Barlow Condensed';letter-spacing:4px;
+  padding:0 35px;color:#888;white-space:nowrap;
+}
+.marquee b{color:#eee}
+@keyframes marquee{to{transform:translateX(-50%)}}
+
+/* COLLECTION */
+section{position:relative;z-index:1}
+.collection{padding:110px 6% 120px}
+.section-top{display:flex;align-items:end;justify-content:space-between;margin-bottom:45px}
+.kicker{font-size:10px;letter-spacing:4px;color:#888;margin-bottom:13px}
+.section-title{font:800 clamp(48px,8vw,90px)/.9 'Barlow Condensed';letter-spacing:-2px}
+.section-note{font-size:11px;color:#888;max-width:180px;line-height:1.7;text-align:right}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:30px}
+.filter{
+  padding:10px 16px;border:1px solid #333;background:transparent;
+  color:#999;font-size:9px;letter-spacing:2px;text-transform:uppercase;
+  transition:.25s;
+}
+.filter:hover,.filter.active{background:#eee;color:#080808;border-color:#eee}
+.product-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:36px 18px}
+.product{min-width:0;cursor:pointer}
+.product-image{
+  aspect-ratio:4/5;position:relative;overflow:hidden;background:#151515;
+}
+.product-image img{
+  width:100%;height:100%;object-fit:cover;filter:grayscale(1);
+  transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .5s;
+}
+.product:hover .product-image img{transform:scale(1.06);filter:grayscale(.25)}
+.product-tag{
+  position:absolute;top:14px;left:14px;background:#eee;color:#080808;
+  padding:7px 10px;font-size:8px;letter-spacing:2px;font-weight:700;
+}
+.quick-view{
+  position:absolute;bottom:14px;left:14px;right:14px;
+  padding:14px;background:rgba(8,8,8,.85);border:1px solid #555;
+  text-align:center;font-size:9px;letter-spacing:2px;
+  transform:translateY(70px);transition:.35s;
+}
+.product:hover .quick-view{transform:translateY(0)}
+.product-info{display:flex;justify-content:space-between;gap:10px;padding-top:16px}
+.product-name{font-size:12px;letter-spacing:1px;text-transform:uppercase}
+.product-category{font-size:9px;color:#777;margin-top:7px;letter-spacing:1px}
+.product-price{font-size:12px;white-space:nowrap}
+.empty-state{grid-column:1/-1;color:#888;padding:50px;text-align:center}
+
+/* STATEMENT */
+.statement{
+  padding:120px 8%;border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);text-align:center;
+  background:radial-gradient(ellipse at center,#171717 0%,#080808 65%);
+}
+.statement .big{
+  font:900 clamp(55px,12vw,145px)/.85 'Barlow Condensed';
+  letter-spacing:-4px;
+}
+.statement .big span{color:transparent;-webkit-text-stroke:1px #aaa}
+.statement p{font-size:11px;color:#888;letter-spacing:3px;margin-top:30px}
+
+/* FOOTER */
+footer{padding:65px 6% 30px}
+.footer-top{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;padding-bottom:55px}
+.footer-brand{font:900 70px/.8 'Barlow Condensed';letter-spacing:-4px}
+.footer-brand span{color:#777}
+.footer-desc{font-size:11px;color:#888;line-height:1.8;margin-top:20px;max-width:240px}
+.footer-links{display:flex;gap:65px}
+.footer-col h4{font-size:9px;letter-spacing:3px;color:#777;margin-bottom:20px}
+.footer-col a{display:block;font-size:11px;margin:12px 0;color:#ccc}
+.footer-col a:hover{color:white}
+.footer-bottom{border-top:1px solid var(--line);padding-top:20px;display:flex;justify-content:space-between;color:#666;font-size:9px;letter-spacing:1px}
+
+/* QUICK VIEW MODAL */
+.modal{
+  position:fixed;inset:0;z-index:300;background:rgba(0,0,0,.85);
+  backdrop-filter:blur(12px);display:none;place-items:center;padding:20px;
+}
+.modal.open{display:grid}
+.modal-box{
+  background:#111;border:1px solid #444;max-width:750px;width:100%;
+  display:grid;grid-template-columns:1fr 1fr;position:relative;
+}
+.modal-box img{width:100%;height:100%;min-height:380px;object-fit:cover;filter:grayscale(1)}
+.modal-info{padding:45px 30px;display:flex;flex-direction:column;justify-content:center}
+.modal-info h2{font:800 45px/.9 'Barlow Condensed';margin:15px 0}
+.modal-info p{font-size:11px;color:#999;line-height:1.8;margin:15px 0}
+.modal-price{font-size:15px;margin:10px 0 25px}
+.modal-close{position:absolute;right:15px;top:12px;background:none;border:0;font-size:25px}
+.add-cart{background:#eee;color:#080808;border:0;padding:16px;font-size:10px;font-weight:700;letter-spacing:2px}
+.add-cart:hover{background:#aaa}
+.cart-message{font-size:10px;color:#aaa;margin-top:12px;min-height:15px}
+
+/* REVEAL */
+.reveal{opacity:0;transform:translateY(35px);transition:opacity .8s,transform .8s}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+@media(max-width:750px){
+  nav{height:65px;padding:0 5%}
+  .brand{font-size:34px}
+  .nav-links{display:none}
+  .hero{min-height:650px;height:85vh;padding:8% 6%}
+  .hero-art{inset:0;opacity:.35;background-position:60% center}
+  .hero h1{font-size:clamp(85px,19vw,145px);letter-spacing:-4px}
+  .hero-index{right:6%;bottom:5%}
+  .vertical-text{display:none}
+  .collection{padding:80px 5%}
+  .product-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:28px 12px}
+  .product-name{font-size:10px}
+  .product-price{font-size:10px}
+  .quick-view{transform:none;padding:10px;font-size:8px}
+  .section-note{display:none}
+  .statement{padding:90px 5%}
+  .footer-links{gap:35px}
+  .modal-box{grid-template-columns:1fr;max-width:420px;max-height:90vh;overflow:auto}
+  .modal-box img{height:240px;min-height:0}
+  .modal-info{padding:25px}
+  .modal-info h2{font-size:36px}
+}
+@media(max-width:390px){
+  .product-grid{grid-template-columns:1fr}
+  .product-image{aspect-ratio:4/4.5}
+}
+</style>
+</head>
+
+<body>
+<div class="loader"><div class="loader-logo">8<span>S</span></div></div>
+<div class="noise"></div>
+<div class="glow" id="glow"></div>
+
+<nav>
+  <a class="brand" href="#">8<span>S</span></a>
+  <div class="nav-links">
+    <a href="#collection">Collection</a>
+    <a href="#manifesto">Manifesto</a>
+    <a href="#footer">Contact</a>
+  </div>
+  <div class="nav-right">
+    <span>EST. 2026</span>
+    <button class="cart-button" onclick="showCart()">BAG [<span id="cartCount">0</span>]</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-art"></div>
+  <div class="hero-content">
+    <div class="eyebrow">INFINITE × FUTURE × EVOLUTION</div>
+    <h1>BEYOND<span>LIMITS.</span></h1>
+    <p class="hero-copy">Not made to fit in. Designed for those who exist beyond the ordinary. A new form of streetwear begins here.</p>
+    <a href="#collection" class="cta">Explore collection <span>↗</span></a>
+  </div>
+  <div class="vertical-text">THE NEXT FORM OF EXPRESSION — 8S</div>
+  <div class="hero-index">001 / INFINITY IS A STATE OF MIND</div>
+</header>
+
+<div class="marquee">
+  <div class="marquee-track">
+    <span>8S <b>✳</b> INFINITE FUTURE <b>✳</b> NO LIMITS <b>✳</b> EVOLUTION <b>✳</b> 8S <b>✳</b> INFINITE FUTURE <b>✳</b> NO LIMITS <b>✳</b> EVOLUTION <b>✳</b></span>
+    <span>8S <b>✳</b> INFINITE FUTURE <b>✳</b> NO LIMITS <b>✳</b> EVOLUTION <b>✳</b> 8S <b>✳</b> INFINITE FUTURE <b>✳</b> NO LIMITS <b>✳</b> EVOLUTION <b>✳</b></span>
+  </div>
+</div>
+
+<main>
+<section class="collection" id="collection">
+  <div class="section-top reveal">
+    <div>
+      <div class="kicker">01 / THE ARCHIVE</div>
+      <h2 class="section-title">LATEST<br>TRANSMISSIONS.</h2>
+    </div>
+    <p class="section-note">A selection of pieces from the 8S universe. Wear your evolution.</p>
+  </div>
+
+  <div class="filters reveal">
+    <button class="filter active" data-filter="all">All pieces</button>
+    <button class="filter" data-filter="tees">T-shirts</button>
+    <button class="filter" data-filter="hoodies">Hoodies</button>
+    <button class="filter" data-filter="accessories">Accessories</button>
+  </div>
+
+  <div class="product-grid" id="productGrid"></div>
+</section>
+
+<section class="statement" id="manifesto">
+  <div class="kicker reveal">02 / THE 8S PHILOSOPHY</div>
+  <div class="big reveal">INFINITE<br><span>EVOLUTION.</span></div>
+  <p class="reveal">NO BEGINNING. NO END. ONLY WHAT COMES NEXT.</p>
+</section>
+</main>
+
+<footer id="footer">
+  <div class="footer-top">
+    <div>
+      <div class="footer-brand">8<span>S</span></div>
+      <p class="footer-desc">An independent streetwear universe. Built for the ones who refuse to remain the same.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-col">
+        <h4>EXPLORE</h4>
+        <a href="#collection">Collection</a>
+        <a href="#manifesto">Our philosophy</a>
+      </div>
+      <div class="footer-col">
+        <h4>CONNECT</h4>
+        <a href="https://instagram.com/" target="_blank" rel="noreferrer">Instagram ↗</a>
+        <a href="mailto:8Sstore@gmail.com">Email ↗</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 8S. ALL RIGHTS RESERVED.</span>
+    <span>INFINITE × FUTURE × EVOLUTION</span>
+  </div>
+</footer>
+
+<div class="modal" id="productModal" onclick="if(event.target===this)closeModal()">
+  <div class="modal-box">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    <img id="modalImage" src="" alt="Product">
+    <div class="modal-info">
+      <div class="kicker">8S / PRODUCT FILE</div>
+      <h2 id="modalName">PRODUCT NAME</h2>
+      <div class="modal-price" id="modalPrice"></div>
+      <p>Designed for the next generation. A statement piece from the 8S universe.</p>
+      <button class="add-cart" id="modalAdd">ADD TO BAG ↗</button>
+      <div class="cart-message" id="cartMessage"></div>
+    </div>
+  </div>
+</div>
+
+<script>
+// EDIT THIS LIST TO ADD YOUR REAL PRODUCTS.
+const products = [
+  {
+    id:1,name:"VOID SIGNAL TEE",category:"tees",type:"T-SHIRT",
+    price:"₹1,299",tag:"NEW",
+    image:"https://images.unsplash.com/photo-1523398002811-999ca8dec234?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:2,name:"AFTER DARK HOODIE",category:"hoodies",type:"HOODIE",
+    price:"₹2,499",tag:"FEATURED",
+    image:"https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:3,name:"ERROR THEORY TEE",category:"tees",type:"T-SHIRT",
+    price:"₹1,399",tag:"8S ARCHIVE",
+    image:"https://images.unsplash.com/photo-1503341504253-dff4815485f1?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:4,name:"PHANTOM LAYER",category:"hoodies",type:"HOODIE",
+    price:"₹2,699",tag:"LIMITED",
+    image:"https://images.unsplash.com/photo-1578681994506-b8f463449011?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:5,name:"INFINITY CAP",category:"accessories",type:"ACCESSORY",
+    price:"₹799",tag:"NEW",
+    image:"https://images.unsplash.com/photo-1588850561407-ed78c282e89b?auto=format&fit=crop&w=900&q=85"
+  },
+  {
+    id:6,name:"NO SIGNAL TEE",category:"tees",type:"T-SHIRT",
+    price:"₹1,499",tag:"8S ORIGINAL",
+    image:"https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?auto=format&fit=crop&w=900&q=85"
+  }
+];
+
+let cart = [];
+let activeProduct = null;
+
+const grid = document.getElementById("productGrid");
+
+function renderProducts(filter="all"){
+  const list = products.filter(p => filter==="all" || p.category===filter);
+  grid.innerHTML = list.length ? list.map(p => `
+    <article class="product reveal" onclick="openProduct(${p.id})">
+      <div class="product-image">
+        <img src="${p.image}" alt="${p.name}" loading="lazy">
+        <span class="product-tag">${p.tag}</span>
+        <div class="quick-view">VIEW PRODUCT ↗</div>
+      </div>
+      <div class="product-info">
+        <div>
+          <div class="product-name">${p.name}</div>
+          <div class="product-category">${p.type} / 8S</div>
+        </div>
+        <div class="product-price">${p.price}</div>
+      </div>
+    </article>
+  `).join("") : `<div class="empty-state">NO PRODUCTS IN THIS CATEGORY YET.</div>`;
+  observeReveals();
+}
+
+document.querySelectorAll(".filter").forEach(button=>{
+  button.addEventListener("click",()=>{
+    document.querySelectorAll(".filter").forEach(b=>b.classList.remove("active"));
+    button.classList.add("active");
+    renderProducts(button.dataset.filter);
+  });
+});
+
+function openProduct(id){
+  activeProduct = products.find(p=>p.id===id);
+  if(!activeProduct)return;
+  document.getElementById("modalImage").src=activeProduct.image;
+  document.getElementById("modalName").textContent=activeProduct.name;
+  document.getElementById("modalPrice").textContent=activeProduct.price;
+  document.getElementById("cartMessage").textContent="";
+  document.getElementById("productModal").classList.add("open");
+  document.body.style.overflow="hidden";
+}
+
+function closeModal(){
+  document.getElementById("productModal").classList.remove("open");
+  document.body.style.overflow="";
+}
+
+document.getElementById("modalAdd").addEventListener("click",()=>{
+  if(!activeProduct)return;
+  cart.push(activeProduct);
+  updateCart();
+  document.getElementById("cartMessage").textContent="ADDED TO YOUR BAG.";
+});
+
+function updateCart(){
+  document.getElementById("cartCount").textContent=cart.length;
+}
+
+function showCart(){
+  if(cart.length===0){
+    alert("Your bag is currently empty.");
+    return;
+  }
+  const summary=cart.map(p=>p.name+" — "+p.price).join("\n");
+  alert("YOUR 8S BAG\n\n"+summary+"\n\nCart demo only — connect a checkout system to accept orders.");
+}
+
+// Cursor glow
+const glow=document.getElementById("glow");
+window.addEventListener("mousemove",e=>{
+  glow.style.left=e.clientX+"px";
+  glow.style.top=e.clientY+"px";
+});
+
+// Scroll reveal
+let revealObserver;
+function observeReveals(){
+  if(revealObserver)revealObserver.disconnect();
+  revealObserver=new IntersectionObserver(entries=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add("visible");
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  },{threshold:.12});
+  document.querySelectorAll(".reveal:not(.visible)").forEach(el=>revealObserver.observe(el));
+}
+
+renderProducts();
+observeReveals();
+</script>
+</body>
+</html>
